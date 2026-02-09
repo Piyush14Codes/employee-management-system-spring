@@ -40,11 +40,12 @@ public class EmployeeService {
         repository.deleteById(id);
     }
 
-    public void updateEmployee(int id , String name , int deptId , double salary) {
+    public Employee updateEmployee(int id , String name , int deptId , double salary) {
         Employee emp = getEmployeeById(id);
         emp.setName(name);
         emp.setDept(Department.fromId(deptId));
         emp.setSalary(salary);
         repository.save(emp);
+        return emp;
     }
 }

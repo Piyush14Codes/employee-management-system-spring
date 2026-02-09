@@ -34,8 +34,25 @@ public class EmployeeController {
         return service.getEmployeeById(id);
     }
 
+    @PutMapping("/{id}")
+    public Employee updateEmployee(@PathVariable int id , @RequestBody EmployeeRequest updateEmployee) {
+        return service.updateEmployee(id,updateEmployee.getName(),updateEmployee.getDeptId(),updateEmployee.getSalary());
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         service.deleteEmployee(id);
     }
+
+    @GetMapping("/totalEmployees")
+    public long getTotalEmployees() {
+        return service.getTotalNoOfEmployees();
+    }
+
+    @GetMapping("/{name}")
+    public List<Employee> getEmployeesByName(@PathVariable String name) {
+        return service.getEmployeeByName(name);
+    }
+
+
 }
