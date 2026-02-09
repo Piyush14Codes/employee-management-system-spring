@@ -29,17 +29,17 @@ public class EmployeeController {
         return service.getAllEmployees();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public Employee getById(@PathVariable int id) {
         return service.getEmployeeById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/id/{id}")
     public Employee updateEmployee(@PathVariable int id , @RequestBody EmployeeRequest updateEmployee) {
         return service.updateEmployee(id,updateEmployee.getName(),updateEmployee.getDeptId(),updateEmployee.getSalary());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public void delete(@PathVariable int id) {
         service.deleteEmployee(id);
     }
@@ -49,7 +49,7 @@ public class EmployeeController {
         return service.getTotalNoOfEmployees();
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     public List<Employee> getEmployeesByName(@PathVariable String name) {
         return service.getEmployeeByName(name);
     }
