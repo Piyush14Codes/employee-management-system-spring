@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class EmployeeService {
 
+    private final EmployeeRepository repository;
+
     @Autowired
-    private EmployeeRepository repository;
+    public EmployeeService(EmployeeRepository repository) {
+        this.repository = repository;
+    }
 
     public Employee addEmployee(String name , int deptId , double salary) {
         Department dept = Department.fromId(deptId);
