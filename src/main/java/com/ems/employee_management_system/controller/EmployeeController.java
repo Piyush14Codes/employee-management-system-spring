@@ -28,7 +28,7 @@ public class EmployeeController {
         );
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Employee> getAll() {
         return service.getAllEmployees();
     }

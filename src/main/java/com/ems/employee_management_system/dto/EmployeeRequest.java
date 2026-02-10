@@ -1,11 +1,13 @@
 package com.ems.employee_management_system.dto;
 
+//Used for fetching request parameters
 public class EmployeeRequest {
 
     private String name;
     private int deptId;
     private double salary;
 
+    //getters
     public String getName() {
         return name;
     }
@@ -18,6 +20,7 @@ public class EmployeeRequest {
         return salary;
     }
 
+    //setters
     public void setName(String name) {
         this.name = name;
     }
