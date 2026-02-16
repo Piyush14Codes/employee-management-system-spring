@@ -5,6 +5,7 @@ import com.ems.employee_management_system.entity.Employee;
 import com.ems.employee_management_system.exception.EmployeeNotFoundException;
 import com.ems.employee_management_system.exception.InvalidDepartmentException;
 import com.ems.employee_management_system.repository.EmployeeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class EmployeeService {
     }
 
     //Adding a single employee to DB
+    @Transactional
     public Employee addEmployee(String name , int deptId , double salary) {
         Department dept;
         try {
@@ -53,6 +55,7 @@ public class EmployeeService {
     }
 
     //Deleting employee records by ID
+    @Transactional
     public void deleteEmployee(int id) {
         if(!repository.existsById(id)) {
             throw new EmployeeNotFoundException(id);
@@ -61,6 +64,7 @@ public class EmployeeService {
     }
 
     //Updating employee details
+    @Transactional
     public Employee updateEmployee(int id , String name , int deptId , double salary) {
         Department dept;
         try {

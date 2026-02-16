@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 public class EmployeeRequest {
 
     @NotBlank(message = "Name is required")
-    @Size(max = 255)
+    @Size(max = 100)
     private String name;
 
     @Min(value = 1 , message = "Department Id must 1,2, or 3")

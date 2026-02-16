@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/api")
 public class EmployeeController {
 
     private static final Logger log = LoggerFactory.getLogger(EmployeeController.class);
@@ -23,7 +23,7 @@ public class EmployeeController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("/employees")
     public Employee addEmployee(@Valid @RequestBody EmployeeRequest request) {
         log.info("Adding employee: name={}, deptId={}, salary={}", request.getName(), request.getDeptId(), request.getSalary());
 
@@ -37,22 +37,21 @@ public class EmployeeController {
 
     }
 
-    @GetMapping
-    public List<Employee> getAll() {
-        log.info("Fetching all employees");
-        List<Employee> employees = service.getAllEmployees();
-        log.info("Retrieved {} employees",employees.size());
-        return employees;
-    }
+//    public List<Employee> getAll() {
+//        log.info("Fetching all employees");
+//        List<Employee> employees = service.getAllEmployees();
+//        log.info("Retrieved {} employees",employees.size());
+//        return employees;
+//    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/employees/{id}")
     public Employee getById(@PathVariable int id) {
         log.info("Fetching employee by id={}",id);
         Employee employee = service.getEmployeeById(id);
         return employee;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/employees/{id}")
     public Employee updateEmployee(@PathVariable int id ,@Valid @RequestBody EmployeeRequest updateEmployee) {
         log.info("Updating employee id={} , name={} , salary={}",id,updateEmployee.getName(),updateEmployee.getSalary());
         Employee employee = service.updateEmployee(id,updateEmployee.getName(),updateEmployee.getDeptId(),updateEmployee.getSalary());
@@ -60,7 +59,7 @@ public class EmployeeController {
         return employee;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/employees/{id}")
     public void delete(@PathVariable int id) {
         log.info("Deleting employee id={}", id);
         service.deleteEmployee(id);
@@ -75,12 +74,19 @@ public class EmployeeController {
         return count;
     }
 
-    @GetMapping("?name=...")
-    public List<Employee> getEmployeesByName(@PathVariable String name) {
-        log.info("Fetching employees by name={}",name);
-        List<Employee> employeeList = service.getEmployeeByName(name);
-        log.info("Found {} employee(s) for name={}", employeeList.size() , name);
-        return employeeList;
+    @GetMapping("/employees")
+    public List<Employee> getEmployeesByName(@RequestParam(required = false) String name) {
+        if(name != null && !name.isBlank()) {
+            log.info("Fetching employees by name={}",name);
+            List<Employee> employeeList = service.getEmployeeByName(name);
+            log.info("Found {} employee(s) for name={}", employeeList.size() , name);
+            return employeeList;
+        }
+
+        log.info("Fetching all employees");
+        List<Employee> employees = service.getAllEmployees();
+        log.info("Retrieved {} employees",employees.size());
+        return employees;
     }
 
 
